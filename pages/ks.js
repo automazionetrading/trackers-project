@@ -1,7 +1,7 @@
 
 export default function KitchenSink() {
   return (
-    <>
+    <div className="container">
       <h1>This is the primary heading and there should only be one of these per page</h1>
       <p>A small paragraph to <em>emphasis</em> and show <strong>important</strong> bits.</p>
       <ul>
@@ -81,6 +81,6 @@ export default function KitchenSink() {
       </dl>
       <h6>This heading plays a relatively small bit part role, if you use it at all</h6>
       <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-    </>
+    </div>
   );
 }

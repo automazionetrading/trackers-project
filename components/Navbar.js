@@ -11,10 +11,13 @@ export default function Navbar() {
           <Link href="/build"><a className="btn">Build</a></Link>
         </li>
         <li>
-          <Link href="/about"><a className="btn">About</a></Link>
+          <Link href="/resources"><a className="btn">Resources</a></Link>
         </li>
         <li>
-          <Link href="/contact"><a className="btn">Contact</a></Link>
+          <Link href="/inspiration"><a className="btn">Inspiration</a></Link>
+        </li>
+        <li>
+          <Link href="/about"><a className="btn">About</a></Link>
         </li>
         <li>
           <Link href="/ks"><a className="btn">STYLE KITCHEN SIKN</a></Link>
