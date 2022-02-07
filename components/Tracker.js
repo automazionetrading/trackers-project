@@ -1,10 +1,9 @@
 import * as Icon from 'react-feather';
 
-
+// Il componente prende solo un argomento, Questo argomento viene derivato dal context 
 export default function TrackerFeed({ trackersList }) {
-  return trackersList ?
-    trackersList.map((tracker) => <Tracker trackerData={tracker} key={tracker.name} />)
-    : null;
+
+ return trackersList ? trackersList.map((tracker) => <Tracker trackerData={tracker} key={tracker.name} />) : null;
 }
 
 /**
@@ -25,7 +24,7 @@ function Tracker({ trackerData }) {
       <div className="tracker-card">
         <div className="description">{description}</div>
         <div className="item-container">
-          {[...Array(iterations)].map((_, i) => <span className="item"><Icon.Square key={i} /></span>)}
+          {[...Array(iterations)].map((_, i) => <span className="item"><Icon.Square key={name + i} /></span>)}
         </div>
         <p>{timeframe}</p>
       </div>
