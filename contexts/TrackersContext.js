@@ -6,6 +6,8 @@ const TrackerContext = createContext([{}, () => { }]);
 // creo un wrapper specifico per il context in modo che possa condividere lo stesso
 // con i componenti figli. Quindi può prendere i dati dal form e aggiungerli al context 
 // e poi aggiornare il context con la funzione dispatch
+//. 
+
 const TrackerContextProvider = (props) => {
 
   const [state, setState] = useState({
