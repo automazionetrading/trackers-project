@@ -1,50 +1,89 @@
 import * as Icon from 'react-feather';
 import useTrackerForm from '../hooks/useTrackerForm';
-
-
-
+import toast from 'react-hot-toast';
 
 // Il componente prende solo un argomento, Questo argomento viene derivato dal context 
 export default function TrackerFeed() {
 
-  const { trackers, count, addTracker } = useTrackerForm();
-  console.log("Sono nel TrackerFeed");
-  console.log(trackers);
+  const { trackers, count, removeTracker, addTracker } = useTrackerForm();
+
+  //console.log(trackers);
+  const submitTracker = e => {
+    e.preventDefault();
+    addTracker()
+  }
+
+  let emptyTracker = {
+    name: "",
+    description: "",
+    iterations: "",
+    timeframe: ""
+  }
+
+
   const NewTracker = () => {
 
+    function handleChange(e) {
+      const val = e.target.value.toLowerCase();
+      const { name, value } = e.target;
+      if (e.target.name !== "iterations") {
+        if (!val || val.length < 3) {
+          return;
+        } else {
+          const { name, value } = e.target;
+          emptyTracker[name] = value;
+        }
+      } else {
+        emptyTracker[name] = value;
+      }
+    }
+
+    function submitTracker(e) {
+      if (emptyTracker.name.length < 3 ||
+        emptyTracker.description.length < 3 ||
+        parseInt(emptyTracker.iterations) < 1) {
+        toast.error("Please check your entries");
+        return;
+      }
+      e.preventDefault();
+      addTracker(emptyTracker);
+      toast.success("Tracker added");
+
+    }
+
     return (
-      <div className="tracker-card">
+      <div className="tracker-form">
         <h3>Add New Tracker</h3>
         <form>
           <label>Name</label>
-          <input id="name" name="name" type="text" />
+          <input id="name" name="name" type="text" onChange={handleChange} />
           <label>Description</label>
-          <input id="description" name="description" type="text" />
+          <input id="description" name="description" type="text" onChange={handleChange} />
           <label>Iterations</label>
-          <input id="iteration" name="iterations" type="number" />
+          <input id="iteration" name="iterations" type="number" onChange={handleChange} />
           <label>Timeframe</label>
-          <input id="timeframe" name="timeframe" type="text" />
-          <button className="btn" onClick={addTracker}>Submit</button>
+          <input id="timeframe" name="timeframe" type="text" onChange={handleChange} />
+          <button className="btn" onClick={submitTracker}>Submit</button>
         </form>
       </div>
     )
-
   }
+
   function Tracker({ trackerData }) {
-    const name = trackerData.name;
-    const description = trackerData.description;
-    const iterations = parseInt(trackerData.iterations);
-    const timeframe = trackerData.timeframe;
 
     return (
       <main className="tracker">
-        <h3>{name}</h3>
+        <h3>{trackerData.name}</h3>
         <div className="tracker-card">
-          <div className="description">{description}</div>
-          <div className="item-container">
-            {[...Array(iterations)].map((_, i) => <span className="item"><Icon.Circle key={name + i} /></span>)}
+          <div className="tracker-card-icons">
+            <Icon.Edit size={20} />
+            <Icon.MinusCircle size={20} onClick={removeTracker} />
           </div>
-          <p>{timeframe}</p>
+          <div className="description">{trackerData.description} </div>
+          <div className="item-container">
+            {[...Array(parseInt(trackerData.iterations))].map((_, i) => <span className="item" ><Icon.Circle /></span>)}
+          </div>
+          <p>{trackerData.timeframe}</p>
         </div>
       </main>
     );
@@ -62,8 +101,8 @@ export default function TrackerFeed() {
   } else {
     return (
       <>
-        {trackers.map((tracker, i) => <Tracker trackerData={tracker} key={i} />)}
         <NewTracker />
+        {trackers.map((tracker, i) => <Tracker trackerData={tracker} key={tracker + i} />)}
       </>
     );
   }

@@ -9,10 +9,9 @@ export default function Build() {
   return (
     <main>
       <TrackerContextProvider>
-        <h3>BUILD PAGE</h3>
         <TrackerFeed />
       </TrackerContextProvider>
-    </main>
+    </main >
   );
 }
 

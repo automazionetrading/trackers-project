@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <navbar className="navbar">
+    <navbar className="navbar menu">
       <ul>
         <li>
           <Link href="/"><a className="btn">Home</a></Link>
