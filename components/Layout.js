@@ -5,12 +5,12 @@ import { Toaster } from 'react-hot-toast';
 export default function Layout({ children }) {
   return (
     <>
-      <div className="container">
-        <NavBar />
+      <NavBar />
+      <div className="main-container">
         {children}
         <Footer />
-        <Toaster />
       </div>
+      <Toaster />
     </>
   );
 }
