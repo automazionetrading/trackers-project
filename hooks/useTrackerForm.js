@@ -9,24 +9,27 @@ const useTrackerForm = () => {
 
   // funzione per aggiungere il tracker
   const addTracker = receivedTracker => {
+
     const newTracker = {
+      id: receivedTracker.id,
       name: receivedTracker.name,
       description: receivedTracker.description,
       iterations: receivedTracker.iterations,
-      timeframe: receivedTracker.timeframe
+      timeframe: receivedTracker.timeframe,
     };
+
+    // console.log(receivedTracker);
     // Aggiungo il tracker alla lista dei tracker
-    setState({ count: state.trackers.lenght, trackers: [newTracker, ...state.trackers] });
-    // return {
-    //   trackers: state.trackers,
-    //   count: state.count,
-    // };
+    setState({ trackers: [newTracker, ...state.trackers], count: state.trackers.length });
+
+
   };
 
   //funzione per togliere un tracker
-  const removeTracker = index => {
-    const newTrackers = state.trackers.filter((tracker, name) => name !== name);
-    setState({ count: state.trackers.lenght, trackers: newTrackers });
+  function removeTracker(trackerToRemove) {
+    const newTrackers = state.trackers.filter((tracker) => tracker.id !== trackerToRemove.id);
+    console.log('Poppo il tracker numero: ', trackerToRemove.id, "  dalla lista : ", state.trackers);
+    setState({ count: newTrackers.lenght, trackers: newTrackers });
   }
 
 

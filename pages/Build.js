@@ -7,15 +7,13 @@ import { TrackerContextProvider } from '../contexts/trackersContext';
 export default function Build() {
 
   return (
-    <main>
+    <main className="tracker-page">
       <TrackerContextProvider>
         <TrackerFeed />
       </TrackerContextProvider>
     </main >
   );
 }
-
-
 
 
 /**

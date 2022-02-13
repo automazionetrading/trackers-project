@@ -7,13 +7,9 @@ export default function TrackerFeed() {
 
   const { trackers, count, removeTracker, addTracker } = useTrackerForm();
 
-  //console.log(trackers);
-  const submitTracker = e => {
-    e.preventDefault();
-    addTracker()
-  }
 
   let emptyTracker = {
+    id: count,
     name: "",
     description: "",
     iterations: "",
@@ -41,11 +37,12 @@ export default function TrackerFeed() {
     function submitTracker(e) {
       if (emptyTracker.name.length < 3 ||
         emptyTracker.description.length < 3 ||
-        parseInt(emptyTracker.iterations) < 1) {
+        parseInt(emptyTracker.iterations) < 1 || parseInt(emptyTracker.iterations) > 50) {
         toast.error("Please check your entries");
         return;
       }
       e.preventDefault();
+      emptyTracker.id = count;
       addTracker(emptyTracker);
       toast.success("Tracker added");
 
@@ -55,14 +52,22 @@ export default function TrackerFeed() {
       <div className="tracker-form">
         <h3>Add New Tracker</h3>
         <form>
-          <label>Name</label>
-          <input id="name" name="name" type="text" onChange={handleChange} />
-          <label>Description</label>
-          <input id="description" name="description" type="text" onChange={handleChange} />
-          <label>Iterations</label>
-          <input id="iteration" name="iterations" type="number" onChange={handleChange} />
-          <label>Timeframe</label>
-          <input id="timeframe" name="timeframe" type="text" onChange={handleChange} />
+          <fieldset>
+            <label>Name</label>
+            <input id="name" name="name" type="text" onChange={handleChange} />
+          </fieldset>
+          <fieldset>
+            <label>Description</label>
+            <input id="description" name="description" type="text" onChange={handleChange} />
+          </fieldset>
+          <fieldset>
+            <label>Iterations</label>
+            <input id="iteration" name="iterations" type="number" onChange={handleChange} />
+          </fieldset>
+          <fieldset>
+            <label>Timeframe</label>
+            <input id="timeframe" name="timeframe" type="text" onChange={handleChange} />
+          </fieldset>
           <button className="btn" onClick={submitTracker}>Submit</button>
         </form>
       </div>
@@ -71,13 +76,20 @@ export default function TrackerFeed() {
 
   function Tracker({ trackerData }) {
 
+    function popTracker(e) {
+      console.log(trackerData.id);
+      e.preventDefault();
+      removeTracker(trackerData);
+      toast.success("Tracker removed");
+    }
+
     return (
-      <main className="tracker">
+      <main className="tracker" name={trackerData.id}>
         <h3>{trackerData.name}</h3>
         <div className="tracker-card">
           <div className="tracker-card-icons">
             <Icon.Edit size={20} />
-            <Icon.MinusCircle size={20} onClick={removeTracker} />
+            <Icon.MinusCircle size={20} onClick={popTracker} />
           </div>
           <div className="description">{trackerData.description} </div>
           <div className="item-container">

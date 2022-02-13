@@ -11,13 +11,15 @@ const TrackerContext = createContext([{}, () => { }]);
 const TrackerContextProvider = (props) => {
 
   const [state, setState] = useState({
-    trackers: [{
-      name: 'Drink Water ',
-      description: 'Track how much water you drink for 2 weeks',
-      iterations: '15',
-      timeframe: 'Bi-Weekly'
-    }],
-    count: 1
+    // trackers: [{
+    //   id: 1,
+    //   name: 'Drink Water ',
+    //   description: 'Track how much water you drink for 2 weeks',
+    //   iterations: '15',
+    //   timeframe: 'Bi-Weekly'
+    // }],
+    trackers: [],
+    count: 0
   });
 
   return (
